@@ -24,6 +24,22 @@ public class ContatoDAO {
         }
     }
 
+    public void excluirContato(int id) {
+
+        String sql = "DELETE FROM contatos WHERE mktiID = ?";
+
+        try (Connection conexao = MySQLConnection.getConexao();
+        PreparedStatement stmt = conexao.prepareStatement(sql)){
+
+            stmt.setInt(1, id);
+            stmt.executeQuery(sql);
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao excluir contato no banco de dados.");
+            e.printStackTrace();
+        }
+    }
+
     public void atualizarContato(Contato contato) {
 
         String sql = "UPDATE contatos SET nome = ?, sobrenome = ?, email = ?, telefone = ? WHERE mktiID = ?";
